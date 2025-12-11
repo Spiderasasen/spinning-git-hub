@@ -24,7 +24,7 @@ public class spinning_panal extends JPanel {
         /*Drawing the background*/
         if (background_image != null){
             g2d.drawImage(background_image, 0, 0, getWidth(), getHeight(), null);
-            System.out.println("background drawn");
+//            System.out.println("background drawn");
         }
 
         /*Spinning code*/

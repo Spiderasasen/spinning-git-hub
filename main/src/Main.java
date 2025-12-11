@@ -17,24 +17,17 @@ public class Main{
         frame.setSize(900, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         //creates a image
-        String imageURL = "https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_640.png";
+        String imageURL = "https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png";
+        String BackgroundImageURL = "https://img.freepik.com/free-vector/realistic-galaxy-background_23-2148991322.jpg?semt=ais_hybrid&w=740&q=80";
 
-        //loads the image
-        BufferedImage image = null;
-        try {
-            URL url = new URL(imageURL);
-            image = ImageIO.read(url); //reads the url
-        } catch (IOException e) { //if no image can be loaded then it will have an error
-            e.printStackTrace();
-            System.err.println("Error loading image from URL: " + imageURL);
-        }
+        BufferedImage image = loadImage(imageURL);
+        BufferedImage backGround = loadImage(BackgroundImageURL);
 
         //will print the image into the frame
-        if (image != null) {
+        if (image != null && backGround != null) {
 
-            spinning_panal panel = new spinning_panal(image);
+            spinning_panal panel = new spinning_panal(image, backGround);
 
             //timer to animate the spin
             Timer timer = new Timer(30, e -> {
@@ -54,5 +47,19 @@ public class Main{
         frame.setVisible(true);
         frame.revalidate();
         frame.repaint();
+    }
+
+    //making the image system
+    public static BufferedImage loadImage(String imageURL){
+        //loads the image
+        BufferedImage image = null;
+        try {
+            URL url = new URL(imageURL);
+            image = ImageIO.read(url); //reads the url
+        } catch (IOException e) { //if no image can be loaded then it will have an error
+            e.printStackTrace();
+            System.err.println("Error loading image from URL: " + imageURL);
+        }
+        return image; //returns the image now processed and ready to use
     }
 }
