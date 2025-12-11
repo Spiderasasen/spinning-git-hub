@@ -15,7 +15,7 @@ public class spinning_panal extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g){
-        System.out.println("Starts spinning the image");
+//        System.out.println("Starts spinning the image");
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
