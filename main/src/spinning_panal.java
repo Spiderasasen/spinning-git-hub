@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 public class spinning_panal extends JPanel {
     double angle = 0;
     BufferedImage image;
+    BufferedImage background_image;
 
     //calls the image from main
-    spinning_panal(BufferedImage img){
+    spinning_panal(BufferedImage img, BufferedImage background_image){
         this.image = img;
-        System.out.println("gets the image");
+        this.background_image = background_image;
+        System.out.println("gets the image and background image");
     }
 
     @Override
@@ -19,6 +21,13 @@ public class spinning_panal extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        /*Drawing the background*/
+        if (background_image != null){
+            g2d.drawImage(background_image, 0, 0, getWidth(), getHeight(), null);
+            System.out.println("background drawn");
+        }
+
+        /*Spinning code*/
         //getting the width and height of the image
         int w = image.getWidth();
         int h = image.getHeight();
