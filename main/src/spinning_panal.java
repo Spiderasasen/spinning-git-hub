@@ -8,11 +8,24 @@ public class spinning_panal extends JPanel {
     BufferedImage image;
     BufferedImage background_image;
 
+    Rectangle imageBounds; //trackable image area
+
     //calls the image from main
     spinning_panal(BufferedImage img, BufferedImage background_image){
         this.image = img;
         this.background_image = background_image;
         System.out.println("gets the image and background image");
+
+        //mouse listener
+        addMouseListener(new java.awt.event.MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                if(imageBounds != null && imageBounds.contains(e.getPoint())){
+                    System.out.println("Image Clicked");
+                    transitionEffect();
+                }
+            }
+        });
     }
 
     @Override
@@ -45,7 +58,15 @@ public class spinning_panal extends JPanel {
         g2d.scale(scaleX, 1); //spins horizantol
         g2d.drawImage(image, -w / 2, -h / 2, null); //gets the high and length of the image and draws it
 
+        //saving the clickable bounds
+        imageBounds = new Rectangle(cx - w / 2, cy - h / 2, w, h);
+
         //restoring the orginal location
         g2d.setTransform(old);
+    }
+
+    //transition effect
+    private void transitionEffect(){
+
     }
 }
