@@ -58,6 +58,10 @@ public class spinning_panal extends JPanel {
         g2d.scale(scaleX, 1); //spins horizantol
         g2d.drawImage(image, -w / 2, -h / 2, null); //gets the high and length of the image and draws it
 
+
+        //restoring the orginal location
+        g2d.setTransform(old);
+
         //saving the clickable bounds
         imageBounds = new Rectangle(cx - w / 2, cy - h / 2, w, h);
 
@@ -69,27 +73,43 @@ public class spinning_panal extends JPanel {
             g2d.setComposite(AlphaComposite.SrcOver); // reset
 
         }
-
-        //restoring the orginal location
-        g2d.setTransform(old);
     }
 
     //transition effect
-    private void transitionEffect(){
+    public void transitionEffect(){
         Timer timer = new Timer(30, null);
         timer.addActionListener(e -> {
-            fadeAlpha += 0.05f; // increase opacity
+            fadeAlpha = Math.min(1f, fadeAlpha + 0.05f);
             if (fadeAlpha >= 1f) {
                 ((Timer)e.getSource()).stop();
                 // Swap to next panel
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                topFrame.setContentPane(new NextPanel());
+                topFrame.setContentPane(new NextPanel(this));
                 topFrame.revalidate();
             }
             repaint(); // trigger paintComponent again
         });
         timer.start();
 
+    }
+
+    //making the reset fade so i can finally go back to the orginal screen
+    public void resetFade(){
+        fadeAlpha = 0f;
+    }
+
+    //making a transiton in
+    public void transitionIn(){
+        fadeAlpha = 1f; //start fully opaque
+        Timer timer = new Timer(30, null);
+        timer.addActionListener(e -> {
+            fadeAlpha = Math.max(0f, fadeAlpha - 0.05f);
+            if (fadeAlpha <= 0f){
+                ((Timer)e.getSource()).stop();
+            }
+            repaint();
+        });
+        timer.start();
     }
 
     private float fadeAlpha = 0f;
