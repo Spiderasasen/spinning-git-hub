@@ -61,12 +61,36 @@ public class spinning_panal extends JPanel {
         //saving the clickable bounds
         imageBounds = new Rectangle(cx - w / 2, cy - h / 2, w, h);
 
+        //transition screen section
+        if (fadeAlpha > 0f){
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fadeAlpha));
+            g2d.setColor(new Color(61, 37, 135));
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.setComposite(AlphaComposite.SrcOver); // reset
+
+        }
+
         //restoring the orginal location
         g2d.setTransform(old);
     }
 
     //transition effect
     private void transitionEffect(){
+        Timer timer = new Timer(30, null);
+        timer.addActionListener(e -> {
+            fadeAlpha += 0.05f; // increase opacity
+            if (fadeAlpha >= 1f) {
+                ((Timer)e.getSource()).stop();
+                // Swap to next panel
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                topFrame.setContentPane(new NextPanel());
+                topFrame.revalidate();
+            }
+            repaint(); // trigger paintComponent again
+        });
+        timer.start();
 
     }
+
+    private float fadeAlpha = 0f;
 }
