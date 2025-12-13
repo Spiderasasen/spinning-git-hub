@@ -20,14 +20,17 @@ public class Main{
         //creates a image
         String imageURL = "https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png";
         String BackgroundImageURL = "https://img.freepik.com/free-vector/realistic-galaxy-background_23-2148991322.jpg?semt=ais_hybrid&w=740&q=80";
+        String James = "https://avatars.githubusercontent.com/u/54397470?s=130&v=4";
 
         BufferedImage image = loadImage(imageURL);
         BufferedImage backGround = loadImage(BackgroundImageURL);
+        //the devs
+        BufferedImage JamesImage = loadImage(James);
 
         //will print the image into the frame
-        if (image != null && backGround != null) {
+        if ((image != null) && (backGround != null) && (JamesImage != null)) {
 
-            spinning_panal panel = new spinning_panal(image, backGround);
+            spinning_panal panel = new spinning_panal(image, backGround, JamesImage);
 
             //timer to animate the spin
             Timer timer = new Timer(30, e -> {

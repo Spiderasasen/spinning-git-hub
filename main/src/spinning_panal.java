@@ -7,14 +7,18 @@ public class spinning_panal extends JPanel {
     double angle = 0;
     BufferedImage image;
     BufferedImage background_image;
+    //images of the ddevs to transfer to the nextPanel
+    BufferedImage james;
 
     Rectangle imageBounds; //trackable image area
 
     //calls the image from main
-    spinning_panal(BufferedImage img, BufferedImage background_image){
+    spinning_panal(BufferedImage img, BufferedImage background_image, BufferedImage james){
         this.image = img;
         this.background_image = background_image;
         System.out.println("gets the image and background image");
+        this.james = james;
+        System.out.println("getting the images of the devs");
 
         //mouse listener
         addMouseListener(new java.awt.event.MouseAdapter(){
@@ -84,7 +88,7 @@ public class spinning_panal extends JPanel {
                 ((Timer)e.getSource()).stop();
                 // Swap to next panel
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                topFrame.setContentPane(new NextPanel(this));
+                topFrame.setContentPane(new NextPanel(this, james));
                 topFrame.revalidate();
             }
             repaint(); // trigger paintComponent again
